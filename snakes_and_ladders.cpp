@@ -167,11 +167,6 @@ public:
     Player* getHead() {
         return head;
     }
-
-    // Returns how many players are in the list.
-    int size() {
-        return count;
-    }
 };
 
 // ---------------------------------------------------------------------
@@ -381,8 +376,7 @@ void bubbleSortLeaderboard(LeaderboardEntry entries[], int count);
 void saveToLeaderboard(string name, int moves);
 void showLeaderboard();
 
-// Menus
-void showHowToPlay();
+// Menu
 void showMainMenu();
 
 
@@ -940,7 +934,6 @@ void loadLeaderboard(LeaderboardEntry entries[], int& count) {
             count++;
         }
     }
-    file.close();
 }
 
 // BUBBLE SORT: orders the leaderboard by moves, fewest moves first.
@@ -992,7 +985,6 @@ void saveToLeaderboard(string name, int moves) {
     for (int i = 0; i < count; i++) {
         file << entries[i].moves << " " << entries[i].name << endl;
     }
-    file.close();
 }
 
 // Loads the leaderboard from the file, sorts it with bubble sort and
@@ -1022,33 +1014,8 @@ void showLeaderboard() {
 
 
 // =====================================================================
-//                               MENUS
+//                               MENU
 // =====================================================================
-
-// Prints the rules of the game and explains the undo option.
-void showHowToPlay() {
-    cout << endl << "=================== HOW TO PLAY ===================" << endl;
-    cout << " 1. 2 to 4 players take turns in a fixed order." << endl;
-    cout << " 2. Everyone starts off the board (square 0)." << endl;
-    cout << " 3. On your turn, roll the dice (1 to 6) and move forward." << endl;
-    cout << " 4. Land on a SNAKE head (S) and you slide down to its tail." << endl;
-    cout << " 5. Land on a LADDER bottom (L) and you climb up to its top." << endl;
-    cout << " 6. You must roll the EXACT number to land on square 100." << endl;
-    cout << "    If the roll is too big, you stay where you are." << endl;
-    cout << " 7. The first player to reach square 100 wins!" << endl;
-    cout << endl;
-    cout << " UNDO: choose 'Undo last move' to cancel the most recent" << endl;
-    cout << " move. That player goes back to where they were, and it" << endl;
-    cout << " becomes their turn again. You can undo many times." << endl;
-    cout << endl;
-    cout << " During a turn you can also view the board, the move" << endl;
-    cout << " history and every player's stats." << endl;
-    cout << " The winner is saved to the leaderboard (fewest moves = best)." << endl;
-    cout << endl;
-    showSnakesAndLadders();
-    cout << "===================================================" << endl;
-    pressEnterToContinue();
-}
 
 // Prints the main menu options.
 void showMainMenu() {
@@ -1057,9 +1024,8 @@ void showMainMenu() {
     cout << "         SNAKES  AND  LADDERS        " << endl;
     cout << "=====================================" << endl;
     cout << "  1. Play" << endl;
-    cout << "  2. How to Play" << endl;
-    cout << "  3. View Leaderboard" << endl;
-    cout << "  4. Exit" << endl;
+    cout << "  2. View Leaderboard" << endl;
+    cout << "  3. Exit" << endl;
     cout << "=====================================" << endl;
 }
 
@@ -1073,15 +1039,13 @@ int main() {
     sortBoardItems(ladders, NUM_LADDERS);
 
     int choice = 0;
-    while (choice != 4) {
+    while (choice != 3) {
         showMainMenu();
-        choice = readInt("Enter your choice (1-4): ", 1, 4);
+        choice = readInt("Enter your choice (1-3): ", 1, 3);
 
         if (choice == 1) {
             playGame();
         } else if (choice == 2) {
-            showHowTo2Play();
-        } else if (choice == 3) {
             showLeaderboard();
         }
     }
